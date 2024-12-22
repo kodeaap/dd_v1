@@ -1,4 +1,3 @@
-// src/components/effects/DegenWordsBackground.jsx
 import React, { useState, useEffect } from 'react';
 
 const DEGEN_WORDS = [

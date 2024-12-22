@@ -1,4 +1,3 @@
-// src/components/chat/ChatInterface.jsx
 import React from 'react';
 import ChatMessage from './ChatMessage';
 

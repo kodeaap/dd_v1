@@ -1,4 +1,3 @@
-// src/components/chat/ChatMessage.jsx
 import React from 'react';
 
 const ChatMessage = ({ message, isAI = false }) => (
