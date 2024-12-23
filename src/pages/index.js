@@ -1,110 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
-import TabButton from '../components/shared/TabButton';
-import ChatInterface from '../components/chat/ChatInterface';
-import LeaderboardSection from '../components/leaderboard/LeaderboardSection';
-import DegenWordsBackground from '../components/effects/DegenWordsBackground';
-
-const MOCK_STORIES = [
-  {
-    username: "DegenKing",
-    score: 98,
-    preview: "Lost 100k on a jpeg, made it back on..."
-  },
-  {
-    username: "SolanaWhale",
-    score: 92,
-    preview: "Aped into a random coin because..."
-  },
-  {
-    username: "MoonBoy",
-    score: 87,
-    preview: "Traded my house for NFTs and..."
-  }
-];
+import { useAuth } from '../context/AuthContext';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState('submit');
-  const [messages, setMessages] = useState([{
-    message: activeTab === 'submit' 
-      ? "Share your wildest degen story..." 
-      : "Want to hear a story and rate it?",
-    isAI: true
-  }]);
-  const [currentMessage, setCurrentMessage] = useState('');
-
-  useEffect(() => {
-    setMessages([{
-      message: activeTab === 'submit' 
-        ? "Share your wildest degen story..." 
-        : "Want to hear a story and rate it?",
-      isAI: true
-    }]);
-  }, [activeTab]);
-
-  const handleSubmit = (message) => {
-    if (!message.trim()) return;
-    
-    setMessages(prev => [...prev, {
-      message: message,
-      isAI: false
-    }]);
-    setCurrentMessage('');
-
-    // Simulate AI response
-    setTimeout(() => {
-      setMessages(prev => [...prev, {
-        message: activeTab === 'submit'
-          ? "Thanks for sharing! Your degen score is calculating..."
-          : "Thanks for voting! Your participation has been recorded.",
-        isAI: true
-      }]);
-    }, 1000);
-  };
+  const { connected } = useAuth();
 
   return (
-    <div className="relative min-h-screen flex flex-col text-white bg-black">
-      <DegenWordsBackground />
+    <div className="min-h-screen bg-black flex flex-col">
+      <header className="border-b border-white/10">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white handwritten">
+            De-Gen Diaries
+          </h1>
+          <WalletMultiButton className="!bg-white !text-black hover:!bg-gray-100 !transition-all" />
+        </nav>
+      </header>
 
-      <Header />
-
-      <main className="flex-1 pt-20 pb-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 space-y-6">
-              <div className="flex gap-4 justify-center lg:justify-start">
-                <TabButton 
-                  active={activeTab === 'submit'} 
-                  onClick={() => setActiveTab('submit')}
-                >
-                  RANK MY STORY
-                </TabButton>
-                <TabButton 
-                  active={activeTab === 'vote'} 
-                  onClick={() => setActiveTab('vote')}
-                >
-                  READ & VOTE
-                </TabButton>
-              </div>
-
-              <ChatInterface 
-                messages={messages}
-                currentMessage={currentMessage}
-                setCurrentMessage={setCurrentMessage}
-                activeTab={activeTab}
-                onSubmit={handleSubmit}
-              />
-            </div>
-
-            <div className="lg:col-span-1">
-              <LeaderboardSection stories={MOCK_STORIES} />
-            </div>
-          </div>
+      <main className="flex-grow flex items-center justify-center p-4">
+        <div className="text-center space-y-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white handwritten">
+            Share Your Story
+          </h2>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            Connect your wallet to start sharing your wildest crypto stories and earn rewards
+          </p>
         </div>
       </main>
 
-      <Footer />
+      <footer className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center text-white/60">
+          <div>
+            © 2024 De-Gen Diaries
+          </div>
+          <div className="flex space-x-6">
+            <a href="#" className="hover:text-white transition-colors">Terms</a>
+            <a href="#" className="hover:text-white transition-colors">Privacy</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Handwritten';
+  src: url('/fonts/permanent-marker.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer base {
   body {
     @apply bg-black text-white;
@@ -9,31 +16,24 @@
 }
 
 @layer components {
-  .glow-neon {
-    box-shadow: 0 0 20px 5px rgba(255, 0, 255, 0.3);
+  .handwritten {
+    font-family: 'Handwritten', cursive;
   }
   
   .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-black/20 rounded-full;
+    @apply bg-black/20;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-pink-600/50 rounded-full hover:bg-pink-600/70 transition-colors;
+    @apply bg-white/20 hover:bg-white/40 rounded-full transition-colors;
   }
+}
 
-  .gen-gradient {
-    background: linear-gradient(135deg, #800080 0%, #ff00ff 100%);
-  }
-
-  .gen-border {
-    @apply border border-pink-600/20 hover:border-pink-600/40 transition-all duration-300;
-  }
-
-  .gen-backdrop {
-    @apply backdrop-blur-sm bg-black/60;
-  }
+/* Override Solana Wallet Adapter styles */
+.wallet-adapter-button {
+  @apply !font-handwritten;
 }
