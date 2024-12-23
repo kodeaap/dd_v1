@@ -6,6 +6,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'gen-purple': '#800080',
+        'gen-pink': '#ff00ff',
+        'gen-blue': '#0000ff',
+      },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 3s ease-in-out infinite',
